@@ -50,19 +50,8 @@ export default function LineChart() {
     }, [selectedLocation]);
 
     useEffect(() => {
-      if (selectedLocation.length === 2) {
-
-        const foundLocationIndex = uniqueLocations.findIndex(location => {
-          return location[0] === (selectedLocation[0] as number).toString() && location[1] === (selectedLocation[1] as number).toString();
-        });
-        const event = new Event("change", { bubbles: true });
-        Object.defineProperty(event, "target", {
-          value: { selectedIndex: foundLocationIndex },
-        enumerable: true,
-      });
-
-        // pass the synthetic event to the onLocationChange function
-        onLocationChange(event);
+      if (selectedLocationValue.length === 2) {
+        updateLocation(selectedLocationValue);
       }
     }, [selectedLocationValue])
   
@@ -138,25 +127,24 @@ export default function LineChart() {
           }
       };
 
-      const onLocationChange = (event: React.ChangeEvent<HTMLSelectElement> | Event) => {
-        if (event && event.target) {
-          const element = event.target as HTMLSelectElement;
-          const selectedIndex = element.selectedIndex;
-          const location = uniqueLocations[selectedIndex];
-          const riskDataByLocation = aggregateRiskRatings(tableData, {long: location[0], lat: location[1]});
-          const consolidatedChartDataByLocation = years.map(year => {return riskDataByLocation.aggregateRatingsByYear[parseInt(year)] || 0});
+      const onLocationChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedLocationValue(uniqueLocations[event.target.selectedIndex]);
+      };
+
+      const updateLocation = (location: [string, string]) => {
+        const riskDataByLocation = aggregateRiskRatings(tableData, {long: location[0], lat: location[1]});
+        const consolidatedChartDataByLocation = years.map(year => {return riskDataByLocation.aggregateRatingsByYear[parseInt(year)] || 0});
   
-          const dataset = {
-              label: 'Risk over location',
-              data: consolidatedChartDataByLocation,
-              custom: riskDataByLocation.factorsByYear,
-              borderColor: 'rgb(255,165,0)',
-              backgroundColor: 'rgba(255,165,0, 0.5)',
-          };
-          if (chartRef && chartRef.current) {
-            (chartRef.current as ChartJS).data.datasets.splice(2, 1, dataset);
-            (chartRef.current as ChartJS).update();
-          }
+        const dataset = {
+            label: 'Risk over location',
+            data: consolidatedChartDataByLocation,
+            custom: riskDataByLocation.factorsByYear,
+            borderColor: 'rgb(255,165,0)',
+            backgroundColor: 'rgba(255,165,0, 0.5)',
+        };
+        if (chartRef && chartRef.current) {
+          (chartRef.current as ChartJS).data.datasets.splice(2, 1, dataset);
+          (chartRef.current as ChartJS).update();
         }
       };
 
