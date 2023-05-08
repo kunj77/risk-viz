@@ -41,7 +41,7 @@ export default function MapboxMap() {
       tableData.map((data) => {
         if(data['Year'] === yearSelected) {
           const riskValue = data['Risk Rating'];
-          const color = riskValue < 0.1 ? "#FFFF00" : 
+          const color = riskValue <= 0.1 ? "#FFFF00" : 
              (riskValue > 0.1 && riskValue <= 0.5 ? "#FFA500" : "#FF0000" );
     
              const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
@@ -85,7 +85,7 @@ export default function MapboxMap() {
     const mapboxMap = new mapboxgl.Map({
       container: node,
             accessToken: keys.accessToken,
-            style: "mapbox://styles/mapbox/streets-v9",
+            style: "mapbox://styles/mapbox/streets-v10",
       center: [tableData[0]['Long'], tableData[0]['Lat']],
       zoom: 5
     });
@@ -109,7 +109,7 @@ export default function MapboxMap() {
   };
 
    return (
-   <div className="mapContainer">
+   <div className="map-container">
     <div ref={mapNode} className="map" />
     <select onChange={onYearChange}>
      {
@@ -118,5 +118,22 @@ export default function MapboxMap() {
        })
      }
     </select>
+    <div className="legend-container">
+  <ul className="legend">
+    <li className="legend-item">
+      <div className="color-box" style={{ backgroundColor: '#FFFF00' }}></div>
+      <div className="label">Low (0 - 0.1)</div>
+    </li>
+    <li className="legend-item">
+      <div className="color-box" style={{ backgroundColor: '#FFA500' }}></div>
+      <div className="label">Medium (0.1 - 0.5)</div>
+    </li>
+    <li className="legend-item">
+      <div className="color-box" style={{ backgroundColor: '#FF0000' }}></div>
+      <div className="label">High ({'>'} 0.5)</div>
+    </li>
+  </ul>
+</div>
+
     </div>);
 }

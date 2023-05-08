@@ -20,7 +20,6 @@ export async function GET(request: Request) {
   const rows = await sheet.getRows();
   const rowData = rows.map((row) => row._rawData);
   // Return the rows as JSON
-  // res = {status(200), json(rows.map((row) => row._rawData))};
   return NextResponse.json({ rowData });
   // return new Response(JSON.stringify(rowData));
 }

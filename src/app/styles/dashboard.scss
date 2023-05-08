@@ -1,0 +1,63 @@
+.loading-map {
+    height: 50vh;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0px 1px 10px 6px #E1E1E1;
+    margin: 0 auto;
+  }
+  
+  .loading-table {
+    height: 610px;
+    width: 48%;
+    background-color: white;
+    box-shadow: 0px 1px 10px 6px #E1E1E1;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    float: left;
+  }
+  
+  .loading-chart {
+    height: 610px;
+    width: 49%;
+    background-color: white;
+    box-shadow: 0px 1px 10px 6px #E1E1E1;
+    margin-right: 1vw;
+    float: right;
+  }
+  
+  .loading-chart, .loading-map, .loading-table {
+    background: linear-gradient(to right, #eeeeee 0%, #ffffff 50%, #eeeeee 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1s infinite linear;
+  }
+  
+  @keyframes shimmer {
+    to {
+      background-position: -200% 0;
+    }
+  }
+  
+  .title {
+    width: 98vw;
+    margin: 0 auto;
+    background: white;
+    padding: 35px;
+    margin-bottom: 5px;
+
+    div {
+        width: fit-content;
+          margin: 0 auto;
+      }
+
+      span {
+        width: fit-content;
+        margin: 0 auto;
+        float: left;
+      }
+
+      img {
+        padding: 0 5px;
+        width: 40px;
+        height: 30px;
+      }
+  }
