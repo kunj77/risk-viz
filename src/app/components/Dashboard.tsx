@@ -17,19 +17,23 @@ const tableData = useAppSelector((state) => state.table.tableData);
 
 React.useEffect(() => {
   const fetchData = async () => {
-    const res = await fetch('http://localhost:3000/api/sheet');
-    const response = await res.json();
-    const data = response.rowData;
-
-    const rows: any[] = [];
-    data.forEach((row: any[]) => {
-      let rowData: any = {};
-      row.forEach((element, index) => {
-        rowData[headers[index]] = element;
+    try {
+      const res = await fetch('http://localhost:3000/api/sheet');
+      const response = await res.json();
+      const data = response.rowData;
+  
+      const rows: any[] = [];
+      data.forEach((row: any[]) => {
+        let rowData: any = {};
+        row.forEach((element, index) => {
+          rowData[headers[index]] = element;
+        });
+        rows.push(rowData);
       });
-      rows.push(rowData);
-    });
-    dispatch(setTableData(rows));
+      dispatch(setTableData(rows));
+    } catch (error) {
+      console.error(error);
+    }
   };
   fetchData();
 }, [dispatch]);
