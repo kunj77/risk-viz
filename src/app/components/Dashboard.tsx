@@ -18,7 +18,7 @@ const tableData = useAppSelector((state) => state.table.tableData);
 React.useEffect(() => {
   const fetchData = async () => {
     try {
-      const res = await fetch('http://localhost:3000/api/sheet');
+      const res = await fetch('/api/sheet');
       const response = await res.json();
       const data = response.rowData;
   
