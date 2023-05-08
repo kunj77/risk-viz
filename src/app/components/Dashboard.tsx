@@ -11,7 +11,6 @@ const MapboxMap = React.lazy(() => import('./MapboxMap'));
 const Table = React.lazy(() => import('./Table/Table'));
 const LineChart = React.lazy(() => import('./LineChart'));
 
-
 export default function Dashboard() {
 const dispatch = useAppDispatch();
 const tableData = useAppSelector((state) => state.table.tableData);

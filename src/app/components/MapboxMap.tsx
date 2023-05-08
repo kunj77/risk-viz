@@ -3,7 +3,7 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css"; 
 import {useAppDispatch, useAppSelector} from "../store/hooks";
 import { setSelectedLocation } from '../store/tableDataSlice';
-
+import keys from '../mapboxmapKeys.json';
 let currentMarkers: mapboxgl.Marker[] = [];
 
 
@@ -84,7 +84,7 @@ export default function MapboxMap() {
         // otherwise, create a map instance
     const mapboxMap = new mapboxgl.Map({
       container: node,
-            accessToken: `pk.eyJ1Ijoia3RoYWtrYXIiLCJhIjoiY2xoOXY4bmp1MDE2YTNtbXQxYmFqam5wYiJ9.U-KG9VlJLiHR3mEciqjaeg`,
+            accessToken: keys.accessToken,
             style: "mapbox://styles/mapbox/streets-v9",
       center: [tableData[0]['Long'], tableData[0]['Lat']],
       zoom: 5
