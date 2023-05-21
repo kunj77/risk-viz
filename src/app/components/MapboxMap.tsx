@@ -3,7 +3,7 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css"; 
 import {useAppDispatch, useAppSelector} from "../store/hooks";
 import { setSelectedLocation } from '../store/tableDataSlice';
-import keys from '../mapboxmapKeys.json';
+import keys from '../../../mapboxmapKeys.json';
 let currentMarkers: mapboxgl.Marker[] = [];
 
 
